@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Escape from Irongrave</title>
+    <link rel="icon" type="image/png" href="img/Sfondi/crossicon.png" />
+    <link rel="stylesheet" href="css/irongrave.css" />
+    <script src="js/utility.js"></script>
+    <script src="js/irongrave.js"></script>
+  </head>
+  <body onload="init()">
+    <!-- MANUALE UTENTE -->
+    <div id="manuale" class="hidden">
+      <h1 class="dark-heading">ESCAPE FROM IRONGRAVE</h1>
+
+      <div id="manuale-box">
+        <div id="manuale-box-background"></div>
+
+        <div id="manuale-scroll">
+          <div class="manuale-sezione">
+            <h2 class="dark-heading">DI COSA SI TRATTA</h2>
+            <p>
+              Escape from Irongrave è un gioco di ruolo ambientato nel 2057,
+              dopo un olocausto nucleare che ha devastato gli Stati Uniti. Il
+              giocatore si risveglia prigioniero nella città di Irongrave, dove
+              dovrà sconfiggere sei avversari in un arena per sopravvivere. Tra
+              un combattimento e l'altro è possibile navigare tra gli ambienti,
+              acquistare armi e cure e migliorare il proprio personaggio.
+            </p>
+          </div>
+
+          <div class="manuale-sezione">
+            <h2 class="dark-heading">REGISTRAZIONE E ACCESSO</h2>
+            <p>
+              Per giocare è necessario creare un account. Cliccare il pulsante
+              <strong>LOGIN</strong> in alto a sinistra, selezionare la scheda
+              <strong>REGISTRATI</strong> e inserire un nome utente (minimo 3
+              caratteri) e una password (minimo 4 caratteri). Una volta
+              registrati si viene connessi automaticamente. Gli accessi
+              successivi avvengono tramite la scheda <strong>ACCEDI</strong>.
+            </p>
+          </div>
+
+          <div class="manuale-sezione">
+            <h2 class="dark-heading">CREAZIONE DEL PERSONAGGIO</h2>
+            <p>
+              Cliccando <strong>NUOVA PARTITA</strong> si avvia la creazione in
+              due passi. Prima si sceglie un nome (massimo 10 caratteri) e una
+              razza, poi si distribuiscono a piacere 5 punti bonus fra le
+              quattro statistiche disponibili.
+            </p>
+            <table class="manuale-tabella">
+              <tr>
+                <th>Razza</th>
+                <th>Bonus</th>
+                <th>Malus</th>
+              </tr>
+              <tr>
+                <td>Umano</td>
+                <td>+2 Tenacia</td>
+                <td>-1 Forza</td>
+              </tr>
+              <tr>
+                <td>Contaminato</td>
+                <td>+2 Forza</td>
+                <td>-1 Intelligenza</td>
+              </tr>
+              <tr>
+                <td>Cyborg</td>
+                <td>+2 Intelligenza</td>
+                <td>-1 Tenacia</td>
+              </tr>
+            </table>
+            <table class="manuale-tabella" style="margin-top: 8px">
+              <tr>
+                <th>Statistica</th>
+                <th>Effetto</th>
+              </tr>
+              <tr>
+                <td>Forza</td>
+                <td>Aumenta i danni delle armi da mischia</td>
+              </tr>
+              <tr>
+                <td>Intelligenza</td>
+                <td>Aumenta i danni delle armi a distanza</td>
+              </tr>
+              <tr>
+                <td>Tenacia</td>
+                <td>
+                  Riduce i danni subiti (ogni punto equivale ad un 5% di
+                  riduzione danni)
+                </td>
+              </tr>
+              <tr>
+                <td>Fortuna</td>
+                <td>
+                  Aumenta la probabilità di colpo critico (ogni punto aggiunge
+                  un +5% in più)
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="manuale-sezione">
+            <h2 class="dark-heading">MODALITA SVILUPPATORE</h2>
+            <p>
+              Per finalità di testing, è possibile accedere alla modalità
+              sviluppatore tramite la pressione del tasto "7" durante la
+              creazione del personaggio. Così facendo,una volta avviata la partita 
+              verrà creato un personaggio con tutte le statistiche al massimo (10),
+              una quantità assurda di denaro e il gioco inizierà immediatamente dal 
+              boss finale.
+            </p>
+          </div>
+
+          <div class="manuale-sezione">
+            <h2 class="dark-heading">NAVIGAZIONE</h2>
+            <p>
+              Il gioco si svolge in tre ambienti. Nella <strong>cella</strong>,
+              un click sulle sbarre permette di scegliere se andare al negozio o
+              nell'arena. Nel <strong>negozio</strong> è possibile cliccare sul
+              venditore per acquistare armi e cure, oppure la porta a sinistra
+              per accedere all'arena. Nell'<strong>arena</strong> si svolgono i
+              combattimenti.
+            </p>
+          </div>
+
+          <div class="manuale-sezione">
+            <h2 class="dark-heading">IL NEGOZIO</h2>
+            <p>
+              Il venditore permette di acquistare armi da mischia, armi a
+              distanza con il denaro guadagnato sconfiggendo i nemici
+              nell'arena. Le armi più potenti richiedono un livello minimo di
+              Forza (per quelle da mischia) o Intelligenza (per quelle a
+              distanza) e ogni arma può essere acquistata una sola volta. È
+              possibile avere al massimo 10 medikit. Al primo incontro il
+              venditore regala un'arma secondaria a scelta e 3 medikit.
+            </p>
+          </div>
+
+          <div class="manuale-sezione">
+            <h2 class="dark-heading">IL COMBATTIMENTO</h2>
+            <p>
+              Il combattimento è a turni. Ad ogni turno il giocatore sceglie una
+              delle tre azioni: attaccare con l'arma primaria, attaccare con
+              l'arma secondaria o usare un medikit per curarsi. Ogni attacco ha
+              una probabilità di colpo critico che raddoppia il danno inflitto,
+              determinata dall'arma e dalla Fortuna del personaggio. I danni
+              subiti vengono ridotti dalla Tenacia. Il medikit ripristina il 40%
+              della salute massima.
+            </p>
+            <p>
+              Sconfiggendo un nemico si ottengono dollari, si sale di livello e
+              si distribuiscono 5 nuovi punti bonus. La salute massima aumenta
+              di 10 punti ad ogni livello.
+            </p>
+          </div>
+
+          <div class="manuale-sezione">
+            <h2 class="dark-heading">SALVATAGGIO E STORICO</h2>
+            <p>
+              La partita viene salvata automaticamente dopo ogni acquisto,
+              combattimento e avanzamento di livello. È possibile salvare
+              manualmente cliccando il letto presente nella cella. Per
+              riprendere una partita accedere al proprio account e cliccare
+              <strong>CONTINUA</strong>. Il pulsante
+              <strong>STORICO</strong> mostra tutte le partite completate con i
+              relativi dettagli.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU DI LOGIN E REGISTRAZIONE -->
+    <div id="login-modal" class="modal hidden">
+      <div id="login-overlay" class="modal-overlay"></div>
+      <div id="login-container" class="modal-container">
+        <div id="login-background" class="texture-bg"></div>
+        <div id="login-tabs">
+          <button id="tab-login" class="tab-btn btn-dark active">ACCEDI</button>
+          <button id="tab-register" class="tab-btn btn-dark">REGISTRATI</button>
+        </div>
+        <input
+          type="text"
+          id="login-username"
+          class="input-dark"
+          placeholder="USERNAME..."
+          maxlength="50"
+        />
+        <input
+          type="password"
+          id="login-password"
+          class="input-dark"
+          placeholder="PASSWORD..."
+          maxlength="50"
+        />
+        <p id="login-error"></p>
+        <button id="login-submit-btn" class="menu-btn btn-dark">ACCEDI</button>
+      </div>
+    </div>
+
+    <!-- PROFILO DELL'UTENTE -->
+    <div id="profilo-utente" class="hidden">
+      <img id="profilo-img" src="img/Personaggi/pfp.jpg" alt="profilo" />
+      <p id="profilo-username" class="dark-heading"></p>
+      <button id="logout-btn" class="menu-btn btn-dark">LOGOUT</button>
+    </div>
+
+    <!-- DIALOG DI ERRORE -->
+    <div id="error-dialog" class="hidden">
+      <div id="error-overlay"></div>
+      <div id="dialog-background" class="texture-bg"></div>
+      <div id="dialog-text"></div>
+    </div>
+
+    <!-- MENU PRINCIPALE -->
+    <div id="background"></div>
+    <button id="help-btn" class="btn-dark">?</button>
+    <button id="login-btn" class="btn-dark">LOGIN</button>
+    <div id="main-menu">
+      <h1 id="title" class="dark-heading">ESCAPE FROM<br />IRONGRAVE</h1>
+      <div id="menu-box">
+        <div id="menu-buttons">
+          <button id="new-game-btn" class="menu-btn btn-dark">
+            NUOVA PARTITA
+          </button>
+          <button id="load-game-btn" class="menu-btn btn-dark">CONTINUA</button>
+          <button id="storico-btn" class="menu-btn btn-dark">STORICO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORICO DELLE PARTITE -->
+    <div id="storico-modal" class="modal hidden">
+      <div id="storico-overlay" class="modal-overlay"></div>
+      <div id="storico-container" class="modal-container">
+        <div id="storico-background" class="texture-bg"></div>
+        <h2 id="storico-title" class="dark-heading">LE TUE PARTITE</h2>
+        <div id="storico-lista"></div>
+        <button id="storico-close-btn" class="menu-btn btn-dark">CHIUDI</button>
+      </div>
+    </div>
+
+    <!-- MENU CREAZIONE PERSONAGGIO (NUOVA PARTITA) -->
+    <div id="character-creation" class="hidden">
+      <h1 id="creation-title" class="dark-heading">NUOVO PERSONAGGIO</h1>
+      <div id="creation-box">
+        <div id="creation-box-background" class="texture-bg"></div>
+        <!-- Step 1: Nome e Razza -->
+        <div id="creation-step-1">
+          <div class="creation-section">
+            <label for="char-name" id="char-name-label" class="dark-heading">NOME PERSONAGGIO:</label>
+            <input
+              type="text"
+              id="char-name"
+              class="input-dark"
+              minlength="1"
+              maxlength="10"
+              placeholder="Inserisci nome..."
+            />
+          </div>
+
+          <div class="creation-section">
+            <h2 class="dark-heading">SCEGLI LA TUA RAZZA:</h2>
+            <div class="race-container">
+              <div class="race-card" data-race="Umano">
+                <h3>UMANO</h3>
+                <p class="race-desc">
+                  Tenace sopravvissuto, meno potente ma difficile da spezzare.
+                </p>
+                <div class="race-bonus">+2 TENACIA | -1 FORZA</div>
+              </div>
+              <div class="race-card" data-race="Contaminato">
+                <h3>CONTAMINATO</h3>
+                <p class="race-desc">
+                  Umano mutato dalle radiazioni: potente, ma mentalmente
+                  instabile.
+                </p>
+                <div class="race-bonus">+2 FORZA | -1 INTELLIGENZA</div>
+              </div>
+              <div class="race-card" data-race="Cyborg">
+                <h3>CYBORG</h3>
+                <p class="race-desc">
+                  Umano potenziato tecnologicamente, più intelligente ma dalla
+                  costituzione cagionevole.
+                </p>
+                <div class="race-bonus">+2 INTELLIGENZA | -1 TENACIA</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="creation-buttons">
+            <button id="back-menu-btn" class="menu-btn btn-dark">INDIETRO</button>
+            <button id="next-step-btn" class="menu-btn btn-dark">AVANTI</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Distribuzione Stats -->
+        <div id="creation-step-2" class="hidden">
+          <h2 id="stats" class="dark-heading">STATISTICHE PERSONAGGIO:</h2>
+          <div class="points-available">
+            <p>PUNTI DISPONIBILI:</p>
+            <p id="available-points" class="points-value dark-heading">5</p>
+          </div>
+          <div class="stats-container">
+            <!-- Forza e Tenacia -->
+            <div class="stat-column">
+              <div class="stat-block">
+                <div class="stat-header">
+                  <h3 class="stat-name">FORZA</h3>
+                  <p class="stat-description">
+                    Determina i danni inflitti negli attacchi corpo a corpo
+                  </p>
+                </div>
+                <div class="stat-controls">
+                  <button class="minus-btn btn-dark" data-stat="forza">
+                    -
+                  </button>
+                  <p class="stat-value" id="stat-forza">2</p>
+                  <button class="plus-btn btn-dark" data-stat="forza">+</button>
+                </div>
+              </div>
+              <div class="stat-block">
+                <div class="stat-header">
+                  <h3 class="stat-name">TENACIA</h3>
+                  <p class="stat-description">Resistenza ai danni subiti</p>
+                </div>
+                <div class="stat-controls">
+                  <button class="minus-btn btn-dark" data-stat="tenacia">-</button>
+                  <p class="stat-value" id="stat-tenacia">2</p>
+                  <button class="plus-btn btn-dark" data-stat="tenacia">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Intelligenza e Fortuna -->
+            <div class="stat-column">
+              <div class="stat-block">
+                <div class="stat-header">
+                  <h3 class="stat-name">INTELLIGENZA</h3>
+                  <p class="stat-description">
+                    Capacità di utilizzare armi complesse
+                  </p>
+                </div>
+                <div class="stat-controls">
+                  <button class="minus-btn btn-dark" data-stat="intelligenza">-</button>
+                  <p class="stat-value" id="stat-intelligenza">2</p>
+                  <button class="plus-btn btn-dark" data-stat="intelligenza">+</button>
+                </div>
+              </div>
+              <div class="stat-block">
+                <div class="stat-header">
+                  <h3 class="stat-name">FORTUNA</h3>
+                  <p class="stat-description">
+                    Aumenta probabilità di colpi critici
+                  </p>
+                </div>
+                <div class="stat-controls">
+                  <button class="minus-btn btn-dark" data-stat="fortuna">-</button>
+                  <p class="stat-value" id="stat-fortuna">2</p>
+                  <button class="plus-btn btn-dark" data-stat="fortuna">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="creation-buttons">
+            <button id="back-step-btn" class="menu-btn btn-dark">INDIETRO</button>
+            <button id="confirm-char-btn" class="menu-btn btn-dark">CONFERMA</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTRO DEL GIOCO -->
+    <div id="background2" class="hidden"></div>
+    <div id="lore-text" class="dark-heading hidden">
+      Anno 2057<br /><br />
+      L’olocausto nucleare ha ridotto gli Stati Uniti ad un deserto senza
+      leggi.<br /><br />
+      Ricordi poco o nulla.<br />
+      Ti risvegli solo, in una cella buia.
+    </div>
+  </body>
+</html>

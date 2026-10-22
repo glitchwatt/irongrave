@@ -1,0 +1,929 @@
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-height: 100vh;
+  font-family: Impact, "Arial Black", sans-serif;
+  color: #7a7a7a;
+}
+
+/* CLASSI UTILITY */
+
+/* Stile di testo rosso scuro con ombra */
+.dark-heading {
+  color: #8b2e2e;
+  text-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.95),
+    6px 6px 0 rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 1));
+}
+
+/* Sfondo con la texture DiamondPlate */
+.texture-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../img/Sfondi/DiamondPlate009_1K-JPG_Color.jpg") center /
+    350px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  z-index: -1;
+}
+
+/* Stile scuro per i pulsanti */
+.btn-dark {
+  background: linear-gradient(
+    180deg,
+    rgba(60, 60, 60, 0.92) 0%,
+    rgba(45, 45, 45, 0.92) 100%
+  );
+  border: 3px solid #3a3a3a;
+  border-top-color: #4a4a4a;
+  border-bottom-color: #2a2a2a;
+  color: #8a8a8a;
+  font-family: Impact, "Arial Black", sans-serif;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.95);
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.8),
+    0 5px 12px rgba(0, 0, 0, 0.95);
+}
+
+.btn-dark:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(75, 75, 75, 0.95) 0%,
+    rgba(60, 60, 60, 0.95) 100%
+  );
+  border-color: #4a4a4a;
+  border-top-color: #5a5a5a;
+  color: #a0a0a0;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 25px rgba(0, 0, 0, 0.7),
+    0 7px 16px rgba(0, 0, 0, 0.98);
+}
+
+.btn-dark:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 0 25px rgba(0, 0, 0, 0.95),
+    0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.btn-dark:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: linear-gradient(
+    180deg,
+    rgba(30, 30, 30, 0.92) 0%,
+    rgba(20, 20, 20, 0.92) 100%
+  );
+  color: #4a4a4a;
+}
+
+/* Stile per gli input field scuri */
+.input-dark {
+  padding: 12px 15px;
+  background: rgba(30, 30, 30, 0.9);
+  border: 3px solid #3a3a3a;
+  color: #a0a0a0;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.9);
+  box-sizing: border-box;
+}
+
+.input-dark::placeholder {
+  color: #555;
+}
+
+/* Stile dei menu "modali" per login e storico (overlay + container) */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.modal-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 4px solid #8b2e2e;
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(139, 46, 46, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Classe per nascondere elementi */
+.hidden {
+  display: none;
+}
+
+/* SFONDI */
+
+#background,
+#background2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../img/Sfondi/Concrete042C_1K-JPG_Color.jpg") center / 400px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+
+#background {
+  filter: brightness(0.9) contrast(1.3) grayscale(0.5);
+  z-index: -2;
+}
+
+#background2 {
+  filter: brightness(0.6) contrast(1.5) grayscale(0.6);
+  z-index: -1;
+}
+
+/* MANUALE UTENTE */
+
+#manuale {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  width: 700px;
+}
+
+#manuale h1 {
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 10px;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+#manuale-box {
+  position: relative;
+  padding: 30px 40px;
+  border: 4px solid #2a2a2a;
+  border-top-color: #3a3a3a;
+  border-left-color: #3a3a3a;
+  border-bottom-color: #1a1a1a;
+  border-right-color: #1a1a1a;
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.9),
+    0 8px 20px rgba(0, 0, 0, 0.95);
+}
+
+#manuale-box-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../img/Sfondi/DiamondPlate009_1K-JPG_Color.jpg") center /
+    350px;
+  image-rendering: pixelated;
+  filter: brightness(0.5) contrast(1.4) grayscale(1);
+  z-index: -1;
+}
+
+.manuale-sezione {
+  margin-bottom: 18px;
+}
+
+.manuale-sezione h2 {
+  font-size: 20px;
+  letter-spacing: 3px;
+  margin: 0 0 8px 0;
+}
+
+.manuale-sezione p {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #707070;
+  margin: 0 0 5px 0;
+}
+
+.manuale-tabella {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 6px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.manuale-tabella th {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #8b2e2e;
+  text-transform: uppercase;
+  border-bottom: 1px solid #3a3a3a;
+  padding: 5px 8px;
+  text-align: left;
+}
+
+.manuale-tabella td {
+  color: #707070;
+  padding: 4px 8px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+#manuale-scroll {
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+#manuale-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+#manuale-scroll::-webkit-scrollbar-track {
+  background: rgba(20, 20, 20, 0.5);
+}
+#manuale-scroll::-webkit-scrollbar-thumb {
+  background: #8b2e2e;
+  border-radius: 4px;
+}
+#manuale-scroll {
+  scrollbar-color: #8b2e2e rgba(20, 20, 20, 0.5);
+  scrollbar-width: thin;
+}
+
+/* MENU DI LOGIN E REGISTRAZIONE */
+
+#login-container {
+  width: 400px;
+  padding: 35px 40px;
+  gap: 15px;
+}
+
+#login-background {
+  filter: brightness(0.5) contrast(1.4) grayscale(1);
+}
+
+#login-tabs {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  color: #606060;
+  background: linear-gradient(
+    180deg,
+    rgba(40, 40, 40, 0.95) 0%,
+    rgba(25, 25, 25, 0.95) 100%
+  );
+  border: 2px solid #3a3a3a;
+}
+
+.tab-btn.active {
+  color: #8b2e2e;
+  border-color: #8b2e2e;
+  background: linear-gradient(
+    180deg,
+    rgba(60, 20, 20, 0.95) 0%,
+    rgba(40, 10, 10, 0.95) 100%
+  );
+}
+
+#login-username,
+#login-password {
+  width: 100%;
+  font-size: 16px;
+}
+
+#login-error {
+  color: #8b2e2e;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  min-height: 20px;
+  margin: 0;
+}
+
+/* PROFILO UTENTE */
+
+#profilo-utente:not(.hidden) {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 100;
+}
+
+#profilo-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: brightness(0.8) contrast(1.1);
+  border: 2px solid #3a3a3a;
+}
+
+#profilo-username {
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+#logout-btn {
+  width: 120px;
+  padding: 8px;
+  font-size: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(80, 20, 20, 0.95) 0%,
+    rgba(60, 10, 10, 0.95) 100%
+  );
+  border-color: #8b2e2e;
+  color: #c05050;
+}
+
+#logout-btn:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(100, 30, 30, 0.98) 0%,
+    rgba(80, 15, 15, 0.98) 100%
+  );
+  color: #e06060;
+}
+
+/* DIALOG DI ERRORE */
+
+#error-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+#error-dialog.hidden {
+  display: none;
+}
+
+#error-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  animation: fadeIn 0.2s;
+  z-index: 1;
+}
+
+#error-dialog > div:not(#error-overlay) {
+  position: relative;
+  z-index: 2;
+}
+
+#dialog-background {
+  filter: brightness(0.9) contrast(1.4) grayscale(1);
+}
+
+#dialog-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 30px 50px;
+  border: 4px solid #8b2e2e;
+  background: transparent;
+  box-sizing: border-box;
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(139, 46, 46, 0.6),
+    0 10px 30px rgba(0, 0, 0, 0.95);
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: #8b2e2e;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  text-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.95),
+    6px 6px 0 rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 1));
+  line-height: 1.6;
+}
+
+/* MENU PRINCIPALE */
+
+#login-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 14px 28px;
+  font-size: 16px;
+}
+
+#help-btn:not(.hidden) {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  font-size: 40px;
+  border-radius: 8px;
+  min-width: 60px;
+  padding: 0;
+  font-weight: bold;
+  font-family: "Arial Black", Gadget, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+#main-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#title {
+  font-size: 72px;
+  font-weight: 900;
+  letter-spacing: 10px;
+  margin: 0 0 50px 0;
+}
+
+#menu-box {
+  background: url("../img/Sfondi/DiamondPlate009_1K-JPG_Color.jpg") center /
+    350px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.9) contrast(1.4) grayscale(1);
+  padding: 40px 35px;
+  border: 4px solid #2a2a2a;
+  border-top-color: #3a3a3a;
+  border-left-color: #3a3a3a;
+  border-bottom-color: #1a1a1a;
+  border-right-color: #1a1a1a;
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.9),
+    0 8px 20px rgba(0, 0, 0, 0.95);
+}
+
+#menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.menu-btn {
+  width: 360px;
+  padding: 18px 35px;
+  font-size: 22px;
+  letter-spacing: 4px;
+  position: relative;
+}
+
+/* STORICO DELLE PARTITE */
+
+#storico-container {
+  width: 600px;
+  max-height: 70vh;
+  padding: 35px 40px;
+  gap: 20px;
+}
+
+#storico-background {
+  filter: brightness(0.5) contrast(1.4) grayscale(1);
+}
+
+#storico-title {
+  font-size: 28px;
+  letter-spacing: 5px;
+  margin: 0;
+}
+
+#storico-lista {
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#storico-lista::-webkit-scrollbar {
+  width: 10px;
+}
+#storico-lista::-webkit-scrollbar-track {
+  background: rgba(20, 20, 20, 0.5);
+  border-radius: 5px;
+}
+#storico-lista::-webkit-scrollbar-thumb {
+  background: #8b2e2e;
+  border-radius: 5px;
+}
+#storico-lista::-webkit-scrollbar-thumb:hover {
+  background: #a83a3a;
+}
+#storico-lista {
+  scrollbar-color: #8b2e2e rgba(20, 20, 20, 0.5);
+  scrollbar-width: thin;
+}
+
+.storico-riga {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 15px;
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid #3a3a3a;
+  border-left: 3px solid #8b2e2e;
+}
+
+.storico-riga-nome {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #8b2e2e;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.storico-riga-dettagli {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #707070;
+  margin: 0;
+}
+
+.storico-riga-data {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  color: #505050;
+  margin: 0;
+  text-align: right;
+}
+
+#storico-vuoto {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #505050;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+#storico-close-btn {
+  width: 200px;
+}
+
+/* CREAZIONE NUOVO PERSONAGGIO — PAGINA 1 */
+
+#character-creation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+}
+
+#creation-title {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  margin: 0 0 25px 0;
+  text-align: center;
+}
+
+#creation-box {
+  position: relative;
+  padding: 25px 40px;
+  border: 4px solid #2a2a2a;
+  border-top-color: #3a3a3a;
+  border-left-color: #3a3a3a;
+  border-bottom-color: #1a1a1a;
+  border-right-color: #1a1a1a;
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.9),
+    0 8px 20px rgba(0, 0, 0, 0.95);
+}
+
+#creation-box-background {
+  filter: brightness(0.9) contrast(1.4) grayscale(1);
+}
+
+.creation-section {
+  margin-bottom: 20px;
+}
+
+#char-name-label {
+  display: block;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+#char-name {
+  width: 95%;
+  font-size: 20px;
+  border-top-color: #2a2a2a;
+  border-bottom-color: #4a4a4a;
+  filter: brightness(0.9) contrast(1.4) grayscale(1);
+}
+
+#char-name:focus {
+  border-color: #4a4a4a;
+  border-top-color: #3a3a3a;
+  border-bottom-color: #5a5a5a;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.creation-section h2,
+#stats {
+  font-size: 22px;
+  letter-spacing: 3px;
+  margin: 0 0 12px 0;
+}
+
+.race-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.race-card {
+  flex: 1;
+  background: rgba(35, 35, 35, 0.95);
+  border: 3px solid #3a3a3a;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+  filter: brightness(0.9) contrast(1.4) grayscale(1);
+}
+
+.race-card:hover {
+  background: rgba(45, 45, 45, 0.95);
+  border-color: #4a4a4a;
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 0 25px rgba(0, 0, 0, 0.7),
+    0 6px 15px rgba(0, 0, 0, 0.9);
+}
+
+.race-card.selected {
+  background: rgba(70, 40, 40, 0.98);
+  border: 3px solid #8b2e2e;
+  border-top-color: #a03838;
+  border-left-color: #a03838;
+  border-bottom-color: #6b2222;
+  border-right-color: #6b2222;
+  box-shadow:
+    inset 0 0 40px rgba(139, 46, 46, 0.5),
+    inset 0 0 80px rgba(139, 46, 46, 0.2),
+    0 0 30px rgba(139, 46, 46, 0.7),
+    0 8px 20px rgba(0, 0, 0, 0.95);
+  filter: brightness(1.1) contrast(1.5) grayscale(0.85);
+}
+
+.race-card h3 {
+  font-size: 25px;
+  letter-spacing: 3px;
+  color: #a0a0a0;
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+}
+
+.race-card.selected h3 {
+  color: #d06060;
+  text-shadow:
+    0 0 10px rgba(208, 96, 96, 0.5),
+    2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.race-desc {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #707070;
+  margin: 0 0 15px 0;
+}
+
+.race-bonus {
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: #a0a0a0;
+  font-weight: bold;
+}
+
+.creation-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 25px;
+  filter: brightness(0.9) contrast(1.4) grayscale(1);
+}
+
+.creation-buttons .menu-btn {
+  width: 250px;
+}
+
+/* CREAZIONE NUOVO PERSONAGGIO - PAGINA 2 */
+
+.points-available {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  height: 40px;
+  background: linear-gradient(
+    180deg,
+    rgba(60, 60, 60, 0.92) 0%,
+    rgba(45, 45, 45, 0.92) 100%
+  );
+  border: 3px solid #3a3a3a;
+  border-top-color: #4a4a4a;
+  border-bottom-color: #2a2a2a;
+  margin-bottom: 12px;
+  font-size: 20px;
+  letter-spacing: 3px;
+  color: #8a8a8a;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.95);
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.8),
+    0 5px 12px rgba(0, 0, 0, 0.95);
+  text-transform: uppercase;
+  filter: brightness(0.9) contrast(1.4) grayscale(1);
+}
+
+.points-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #8a8a8a;
+  min-width: 35px;
+  text-align: center;
+}
+
+.stat-column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.stat-block {
+  background: rgba(30, 30, 30, 0.95);
+  border: 3px solid #3a3a3a;
+  padding: 8px 12px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+  height: 150px;
+}
+
+.stat-header {
+  margin-bottom: 5px;
+}
+
+.stat-name {
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #a0a0a0;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+
+.stat-description {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.3;
+  color: #707070;
+  margin: 0;
+  font-style: italic;
+}
+
+.stat-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 5px 0;
+  border-top: 1px solid #2a2a2a;
+}
+
+.plus-btn,
+.minus-btn {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  border-width: 2px;
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.8),
+    0 3px 8px rgba(0, 0, 0, 0.95);
+}
+
+.plus-btn:hover:not(:disabled),
+.minus-btn:hover:not(:disabled) {
+  background: linear-gradient(
+    180deg,
+    rgba(75, 75, 75, 0.95) 0%,
+    rgba(60, 60, 60, 0.95) 100%
+  );
+  border-color: #4a4a4a;
+  color: #a0a0a0;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 15px rgba(0, 0, 0, 0.7),
+    0 4px 10px rgba(0, 0, 0, 0.98);
+}
+
+.plus-btn:active:not(:disabled),
+.minus-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.95);
+}
+
+.plus-btn:disabled,
+.minus-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: linear-gradient(
+    180deg,
+    rgba(30, 30, 30, 0.92) 0%,
+    rgba(20, 20, 20, 0.92) 100%
+  );
+  color: #4a4a4a;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #a0a0a0;
+  min-width: 45px;
+  text-align: center;
+}
+
+/* TESTO TRAMA */
+
+#lore-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: 10px;
+}

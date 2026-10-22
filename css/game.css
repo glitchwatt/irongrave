@@ -1,0 +1,1658 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+/* CLASSI UTILITY */
+
+.hidden {
+  display: none;
+}
+
+.zona-click {
+  animation: pulse-highlight 3s ease-in-out infinite;
+}
+
+.zona-click:hover {
+  animation: none;
+  opacity: 1;
+  filter: brightness(1.5);
+}
+
+/* AMBIENTE 1: CELLA */
+
+#cella {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Parete — occupa i 2/3 superiori dello schermo */
+#cella-parete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 85%;
+  height: 65%;
+  background: url("../img/Sfondi/Bricks096_1K-JPG_Color.jpg") center / 150px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.5) contrast(1.3) grayscale(0.7);
+}
+
+/* Pavimento — occupa il terzo inferiore */
+#cella-pavimento {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  background: url("../img/Sfondi/PavingStones141_1K-JPG_Color.jpg") center /
+    200px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.5) contrast(1.2) grayscale(0.8);
+  border: 1px solid rgb(61, 60, 60);
+}
+
+/* Sbarre — colonna destra */
+#sbarre {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15%;
+  height: 65%;
+  background: url("../img/Sfondi/MetalWalkway002_1K-JPG_Color.jpg") center /
+    400px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.7) contrast(1.3);
+  cursor: pointer;
+}
+
+/* Letto — appoggiato a sinistra sul pavimento */
+#letto {
+  position: absolute;
+  top: 50%;
+  left: 1%;
+  width: 20%;
+  height: 20%;
+  cursor: pointer;
+}
+
+#letto img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.7) contrast(1.2);
+}
+
+/* Torce — sulla parete */
+.torcia {
+  position: absolute;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#torcia1 {
+  left: 30%;
+}
+
+#torcia2 {
+  left: 70%;
+}
+
+.torcia-fiamma {
+  width: 16px;
+  height: 24px;
+  background: #ff9922;
+  border-radius: 50% 50% 30% 30%;
+  box-shadow:
+    0 0 10px #ff9922,
+    0 0 20px #ff6600;
+  animation: fiamma 0.4s ease-in-out infinite alternate;
+}
+
+.torcia-base {
+  width: 10px;
+  height: 10px;
+  background: #5a3a1a;
+  border-top: 3px solid #8a6040;
+}
+
+.torcia-manico {
+  width: 8px;
+  height: 46px;
+  background: linear-gradient(180deg, #5a3a1a, #3a2010);
+  border-radius: 0 0 3px 3px;
+}
+
+/* Overlay scuro ai bordi */
+#filtroscuro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  pointer-events: none;
+}
+
+/* AMBIENTE 2: NEGOZIO */
+
+#negozio {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Parete */
+#negozio-parete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 65%;
+  background: url("../img/Sfondi/PaintedPlaster014_1K-JPG_Color.jpg") center /
+    150px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.55) contrast(1.2) sepia(0.15);
+}
+
+/* Pavimento */
+#negozio-pavimento {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  background: url("../img/Sfondi/WoodSiding001_1K-JPG_Color.jpg") center / 200px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.8) contrast(1.2) sepia(0.1);
+}
+
+/* Bancone — centrato, sul confine parete/pavimento */
+#bancone {
+  position: absolute;
+  top: 45%;
+  left: 30%;
+  width: 70%;
+  height: 25%;
+  background: url("../img/Sfondi/WoodSiding007_1K-JPG_Color.jpg") center / 200px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.8) contrast(1.3) sepia(0.25);
+  border: 1px solid rgb(45, 28, 5);
+  z-index: 1;
+}
+
+/* Venditore — centrato dietro il bancone */
+#venditore {
+  position: absolute;
+  top: 28%;
+  left: 59.7%;
+  width: 10%;
+  height: 20%;
+  cursor: pointer;
+}
+
+#venditore img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.7) contrast(0.9) saturate(0.8);
+  mask-image: radial-gradient(ellipse at center, black 75%, transparent 95%);
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 75%,
+    transparent 95%
+  );
+  z-index: -2;
+}
+
+/* Porta — a sinistra sulla parete */
+#negozio-porta {
+  position: absolute;
+  top: 25%;
+  left: 0.5%;
+  width: 8%;
+  height: 40%;
+  cursor: pointer;
+  background: url("../img/Sfondi/WoodSiding004_1K-JPG_Color.jpg") center / 200px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.8) contrast(1.3) sepia(0.2);
+  border: 1px solid rgb(45, 28, 5);
+}
+
+#maniglia {
+  position: absolute;
+  top: 50%;
+  left: 85%;
+  width: 12px;
+  height: 12px;
+  background: #8a6a20;
+  border-radius: 50%;
+  border: 2px solid #5a4010;
+}
+
+/* Oggetti intorno al vendor */
+.oggetto-vendor {
+  position: absolute;
+  width: 8%;
+  height: 12%;
+}
+
+.oggetto-vendor img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.7) contrast(0.9) saturate(0.8);
+  mask-image: radial-gradient(ellipse at center, black 75%, transparent 95%);
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 75%,
+    transparent 95%
+  );
+}
+
+#oggetto-sx-alto {
+  top: 18%;
+  left: 50%;
+}
+
+#oggetto-sx-basso {
+  top: 30%;
+  left: 50%;
+}
+
+#oggetto-sopra {
+  top: 14%;
+  left: 63%;
+}
+
+.medikit {
+  position: relative;
+  width: 48px;
+  height: 40px;
+  background: #5a1a1a;
+  border: 2px solid #310707;
+}
+
+.kit-croce-h {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 8px;
+  background: #bebbbb;
+}
+
+.kit-croce-v {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 28px;
+  background: #bebbbb;
+}
+
+#oggetto-dx-alto {
+  top: 18%;
+  left: 72%;
+}
+
+#oggetto-dx-basso {
+  top: 30%;
+  left: 72%;
+}
+
+/* Menu negozio - Sistema di acquisto */
+
+#menu-negozio {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#menu-negozio.hidden {
+  display: none;
+}
+
+#negozio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 1;
+}
+
+#negozio-shop-container {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 1100px;
+  height: 75%;
+  display: flex;
+  flex-direction: row;
+  border: 4px solid #8b2e2e;
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(139, 46, 46, 0.5);
+}
+
+#negozio-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../img/Sfondi/DiamondPlate009_1K-JPG_Color.jpg") center /
+    350px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.5) contrast(1.4) grayscale(1);
+  z-index: -1;
+}
+
+/* Colonne */
+#negozio-colonne {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  border-right: 3px solid #8b2e2e;
+}
+
+.shop-colonna {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px;
+  border-right: 1px solid #3a3a3a;
+}
+
+.shop-colonna:last-child {
+  border-right: none;
+}
+
+.shop-titolo-colonna {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: #8b2e2e;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.9);
+  margin: 0 0 12px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.shop-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+/* Oggetti nel negozio */
+.shop-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid #2a2a2a;
+}
+
+.disabilitato {
+  opacity: 0.8;
+}
+
+.shop-item-req.rosso,
+.shop-item-prezzo.rosso {
+  color: red;
+}
+
+.shop-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.shop-item-nome {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+}
+
+.shop-item-tit {
+  color: #a0a0a0;
+}
+
+.shop-item-stats,
+.shop-item-req {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  color: #606060;
+  margin: 0;
+  text-align: center;
+}
+
+.shop-item-prezzo {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 12px;
+  color: #c8a020;
+  margin: 0;
+  text-align: center;
+}
+
+.shop-btn {
+  padding: 5px 8px;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #8a8a8a;
+  text-transform: uppercase;
+  background: linear-gradient(
+    180deg,
+    rgba(60, 60, 60, 0.92) 0%,
+    rgba(45, 45, 45, 0.92) 100%
+  );
+  border: 2px solid #3a3a3a;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.shop-btn:hover:not(:disabled) {
+  background: linear-gradient(
+    180deg,
+    rgba(75, 75, 75, 0.95) 0%,
+    rgba(60, 60, 60, 0.95) 100%
+  );
+  color: #c0c0c0;
+  border-color: #8b2e2e;
+}
+
+.shop-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Sprite delle armi nel negozio */
+.item-sprite {
+  width: 48px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.item-sprite img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.8);
+}
+
+/* Sprite del medikit */
+.medikit-small {
+  position: relative;
+  width: 36px;
+  height: 28px;
+  background: #8b2e2e;
+  border: 1px solid #5a1a1a;
+  flex-shrink: 0;
+}
+
+.medikit-small .kit-croce-h {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 6px;
+  background: #eee;
+}
+
+.medikit-small .kit-croce-v {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 18px;
+  background: #eee;
+}
+
+/* Pannello di equipaggiamento */
+#negozio-equip {
+  width: 200px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.equip-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.equip-label {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #8b2e2e;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.equip-valore {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+#chiudi-negozio {
+  margin-top: auto;
+}
+
+/* AMBIENTE 3: ARENA */
+
+#arena {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-family: Impact, "Arial Black", sans-serif;
+}
+
+/* Cielo — metà superiore */
+#arena-parete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background: url("../img/Sfondi/Concrete042C_1K-JPG_Color.jpg") center / 300px;
+  filter: brightness(0.9) contrast(1.3) grayscale(0.5);
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+
+#arena-parete::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  pointer-events: none;
+}
+
+/* Terreno — metà inferiore */
+#arena-terreno {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background: url("../img/Sfondi/Ground080_1K-JPG_Color.jpg") center / 250px;
+  filter: brightness(0.8) contrast(1.2) saturate(0.75) sepia(0.25);
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+
+#arena-terreno::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.75) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Sprite nemico — a destra dell'arena */
+#sprite-nemico {
+  position: absolute;
+  top: 30%;
+  left: 65%;
+  width: 15%;
+  height: 35%;
+}
+
+#sprite-nemico img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0.95) contrast(1.1) saturate(0.85);
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* Sprite giocatore — a sinistra dell'arena */
+#sprite-giocatore {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  width: 15%;
+  height: 35%;
+}
+
+#sprite-giocatore img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0.95) contrast(1.1) saturate(0.85);
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* SISTEMA DI BATTAGLIA */
+
+/* Menu mosse — barra in basso */
+#menu-mosse {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 22%;
+  display: flex;
+  flex-direction: row;
+  border-top: 3px solid #3a3a3a;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 20, 0.97) 0%,
+    rgba(10, 10, 10, 0.97) 100%
+  );
+}
+
+/* Log della battaglia — lato sinistro */
+#battle-log {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  border-right: 3px solid #3a3a3a;
+}
+
+#log-testo {
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Bottoni delle mosse — lato destro */
+#mosse-bottoni {
+  flex: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+}
+
+.mossa-btn {
+  width: 300px;
+  height: 125px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(70, 70, 70, 0.95) 0%,
+    rgba(40, 40, 40, 0.95) 100%
+  );
+  border: 2px solid #555;
+  border-left-color: #777;
+  border-top-color: #777;
+  border-right-color: #333;
+  border-bottom-color: #222;
+  color: #d0d0d0;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.12s;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.mossa-sprite {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #3a3a3a;
+  border-radius: 2px;
+}
+
+.mossa-sprite img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.mossa-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.mossa-nome {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #e8e8e8;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mossa-danno {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #a8a8a8;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mossa-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(100, 100, 100, 0.98) 0%,
+    rgba(60, 60, 60, 0.98) 100%
+  );
+  color: #ffffff;
+  border-left-color: #999;
+  border-top-color: #999;
+  border-right-color: #222;
+  border-bottom-color: #111;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 4px 8px rgba(0, 0, 0, 0.7);
+  transform: translateY(-2px);
+}
+
+.mossa-btn:active {
+  transform: translateY(0px);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.mossa-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background: linear-gradient(
+    135deg,
+    rgba(50, 50, 50, 0.8) 0%,
+    rgba(30, 30, 30, 0.8) 100%
+  );
+  color: #666;
+}
+
+.mossa-btn:disabled:hover {
+  transform: none;
+  color: #666;
+}
+
+/* Barre della vita */
+#bar-container-player,
+#bar-container-nemico {
+  position: absolute;
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#bar-container-player {
+  top: 10%;
+  left: 20%;
+}
+
+#bar-container-nemico {
+  top: 10%;
+  left: 65%;
+}
+
+.hud-bar-track {
+  width: 100%;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #3a3a3a;
+}
+
+.hud-bar-fill {
+  height: 100%;
+  width: 100%;
+  background: #8b2e2e;
+  transition: width 0.3s ease;
+}
+
+.hud-bar-fill.enemy {
+  background: #8b2e2e;
+}
+
+.hud-hp {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 24px;
+  letter-spacing: 1px;
+  color: #8b2e2e;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.95);
+}
+
+/* CLASSI COMUNI PER I MENU*/
+
+.modal-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-menu.hidden {
+  display: none;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  animation: fadeIn 0.2s;
+  z-index: 1;
+}
+
+.modal-menu > div:not(.modal-overlay) {
+  position: relative;
+  z-index: 2;
+}
+
+.modal-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../img/Sfondi/DiamondPlate009_1K-JPG_Color.jpg") center /
+    350px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.65) contrast(1.4) grayscale(1);
+  z-index: -1;
+}
+
+.modal-content {
+  position: relative;
+  padding: 30px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  border: 4px solid #8b2e2e;
+  background: transparent;
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(139, 46, 46, 0.6),
+    0 10px 30px rgba(0, 0, 0, 0.95);
+}
+
+/* MENU DI PAUSA */
+
+#pause-menu {
+  display: none;
+}
+
+#pause-menu:not(.hidden) {
+  display: flex;
+}
+
+#pause-title {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  color: #8b2e2e;
+  text-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.95),
+    6px 6px 0 rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+#pause-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  filter: brightness(0.9) contrast(1.4) grayscale(1);
+}
+
+/* SCHERMATA DELLE STATISTICHE */
+
+#stats-menu {
+  display: none;
+}
+
+#stats-menu:not(.hidden) {
+  display: flex;
+}
+
+#stats-title {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  color: #8b2e2e;
+  text-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.95),
+    6px 6px 0 rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+#stats-content {
+  min-width: 600px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+#stats-info {
+  display: flex;
+  gap: 60px;
+  width: 100%;
+  justify-content: center;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 16px;
+  color: #a0a0a0;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.95);
+}
+
+#stats-left,
+#stats-right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#stats-left p,
+#stats-right p {
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+#stats-left span,
+#stats-right span {
+  color: #8b2e2e;
+  font-weight: 900;
+}
+
+#stats-equipment {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 16px;
+  color: #a0a0a0;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.95);
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+#stats-equipment p {
+  margin: 10px 0;
+}
+
+#stats-equipment span {
+  color: #8b2e2e;
+  font-weight: 900;
+}
+
+/* MENU DI SALVATAGGIO */
+
+#save-menu {
+  display: none;
+}
+
+#save-menu:not(.hidden) {
+  display: flex;
+}
+
+#save-title {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #8b2e2e;
+  text-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.95),
+    6px 6px 0 rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+}
+
+#save-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  filter: brightness(0.9) contrast(1.4) grayscale(1);
+}
+
+/* DIALOGHI (Sistema di dialogo con sprite e scelte) */
+
+#dialogo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  z-index: 1000;
+}
+
+#dialogo.hidden {
+  display: none;
+}
+
+#dialogo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 1;
+}
+
+#dialogo-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 35%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+#dialogo-sprite {
+  width: 18%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#dialogo-sprite img {
+  height: 100%;
+  margin: 2%;
+  width: 100%;
+  object-fit: contain;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.7) contrast(0.9) saturate(0.8);
+  mask-image: radial-gradient(ellipse at center, black 75%, transparent 95%);
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 75%,
+    transparent 95%
+  );
+}
+
+#dialogo-box {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  padding: 20px 30px;
+  border-top: 4px solid #8b2e2e;
+  border-left: 4px solid #8b2e2e;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9);
+}
+
+#dialogo-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../img/Sfondi/DiamondPlate009_1K-JPG_Color.jpg") center /
+    350px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  filter: brightness(0.65) contrast(1.4) grayscale(1);
+  z-index: -1;
+}
+
+#dialogo-nome {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 28px;
+  letter-spacing: 4px;
+  color: #8b2e2e;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.95);
+  margin: 0;
+}
+
+#dialogo-testo {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: #a0a0a0;
+  line-height: 1.5;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.9);
+  margin: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+#dialogo-continua {
+  width: 180px;
+  align-self: flex-end;
+}
+
+#dialogo-scelte {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+#dialogo-scelta1 {
+  flex: 1;
+}
+
+#dialogo-scelta2 {
+  flex: 1;
+}
+
+/*  SCHERMATE DI STATO (Game Over, Vittoria, Level Up) */
+
+/* Game over */
+#schermata-sconfitta {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.92);
+}
+
+#schermata-sconfitta:not(.hidden) {
+  display: flex;
+}
+
+#sconfitta-titolo {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 96px;
+  letter-spacing: 10px;
+  color: #8b2e2e;
+  text-transform: uppercase;
+  text-shadow:
+    4px 4px 0 rgba(0, 0, 0, 0.95),
+    8px 8px 0 rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(139, 46, 46, 0.4);
+}
+
+#sconfitta-sottotitolo {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.95);
+  animation: lampeggia 1.2s ease-in-out infinite;
+}
+
+/* Vittoria */
+#schermata-vittoria {
+  display: none;
+}
+
+#vittoria-titolo {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 96px;
+  letter-spacing: 10px;
+  color: #7c6415 !important;
+  text-transform: uppercase;
+  text-shadow:
+    4px 4px 0 rgba(0, 0, 0, 0.95),
+    8px 8px 0 rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(212, 175, 55, 0.4);
+}
+
+#vittoria-dollari,
+#levelup-dollari {
+  color: #045e04 !important;
+  font-weight: bold;
+}
+
+#schermata-vittoria:not(.hidden) {
+  display: flex;
+}
+
+#vittoria-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: #a0a0a0;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.95);
+  text-transform: uppercase;
+}
+
+/* Aumento di livello */
+#schermata-levelup {
+  display: none;
+}
+
+#schermata-levelup:not(.hidden) {
+  display: flex;
+}
+
+#levelup-hud {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #8b2e2e;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.95);
+  text-transform: uppercase;
+}
+
+#levelup-titolo {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  color: #8b2e2e;
+  text-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.95),
+    6px 6px 0 rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.points-available {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 18px;
+  color: #d4d4d4;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.95);
+  text-transform: uppercase;
+  margin: 15px 0;
+}
+
+.points-value {
+  font-size: 48px;
+  color: #ffff00;
+  font-weight: 900;
+  margin: 0;
+  text-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.9),
+    0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  width: 100%;
+  justify-content: center;
+}
+
+.stat-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stat-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(20, 20, 20, 0.8);
+  padding: 15px;
+  border: 1px solid #3a3a3a;
+}
+
+.stat-header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-name {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #8b2e2e;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.stat-description {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  color: #606060;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.stat-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.stat-controls button {
+  padding: 5px 12px;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 16px;
+  color: #8b2e2e;
+  background: rgba(60, 60, 60, 0.8);
+  border: 1px solid #3a3a3a;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.stat-controls button:hover:not(:disabled) {
+  background: rgba(75, 75, 75, 0.9);
+  border-color: #8b2e2e;
+}
+
+.stat-controls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.stat-value {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 20px;
+  color: #a0a0a0;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.9);
+  margin: 0;
+}
+
+#levelup-conferma-btn {
+  margin-top: 20px;
+}
+
+/* STILI GLOBALI BOTTONI */
+
+.btn {
+  padding: 12px 30px;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #7a7a7a;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #3a3a3a, #1a1a1a);
+  border: 3px solid #8b2e2e;
+  border-radius: 4px;
+  cursor: pointer;
+  text-shadow:
+    2px 2px 0 rgba(0, 0, 0, 0.95),
+    4px 4px 0 rgba(0, 0, 0, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 15px rgba(0, 0, 0, 0.8);
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.btn:hover {
+  background: linear-gradient(180deg, #4a4a4a, #2a2a2a);
+  border-color: #c93636;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 20px rgba(139, 46, 46, 0.5),
+    0 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+.btn:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* STILE DELLA SCHERMATA DI EPILOGO */
+
+#background2 {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../img/Sfondi/Concrete042C_1K-JPG_Color.jpg") center / 400px;
+  filter: brightness(0.6) contrast(1.5) grayscale(0.6);
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+
+#background2:not(.hidden) {
+  display: block;
+}
+
+#epilogo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1000;
+  width: 80%;
+  max-width: 800px;
+  padding: 20px;
+}
+
+#epilogo-testo {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #8b2e2e;
+  text-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.95),
+    6px 6px 0 rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 1));
+  line-height: 1.8;
+  word-wrap: break-word;
+}
+
+#epilogo-sottotesto {
+  font-size: 20px;
+  color: #606060;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.95);
+  margin-top: 80px;
+}
+
+/* ANIMAZIONI (Tutte le keyframes raggruppate) */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fiamma {
+  from {
+    transform: scaleX(1) scaleY(1);
+  }
+  to {
+    transform: scaleX(0.85) scaleY(1.1);
+  }
+}
+
+@keyframes lampeggia {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes pulse-highlight {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Animazioni combattimento */
+
+@keyframes pulse-colpo {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes pulse-cura {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.colpito {
+  animation: pulse-colpo 0.3s ease-in-out 3;
+}
+
+.curato {
+  animation: pulse-cura 0.6s ease 1;
+}

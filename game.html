@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Escape from Irongrave</title>
+    <link rel="icon" type="image/png" href="img/Sfondi/crossicon.png" />
+    <link rel="stylesheet" href="css/irongrave.css" />
+    <link rel="stylesheet" href="css/game.css" />
+    <script src="js/utility.js"></script>
+    <script src="js/game.js"></script>
+  </head>
+  <body onload="initgame()">
+    <!-- AMBIENTE 1: CELLA -->
+    <div id="cella">
+      <!-- Texture della parete -->
+      <div id="cella-parete"></div>
+
+      <!-- Torce sulla parete -->
+      <div id="torcia1" class="torcia">
+        <div class="torcia-fiamma"></div>
+        <div class="torcia-base"></div>
+        <div class="torcia-manico"></div>
+      </div>
+
+      <div id="torcia2" class="torcia">
+        <div class="torcia-fiamma"></div>
+        <div class="torcia-base"></div>
+        <div class="torcia-manico"></div>
+      </div>
+
+      <!-- Texture del pavimento -->
+      <div id="cella-pavimento"></div>
+
+      <!-- Texture delle sbarre (parte destra del muro) -->
+      <div id="sbarre" class="zona-click"></div>
+
+      <!-- Sprite del letto a sinistra (cliccabile per salvare) -->
+      <div id="letto" class="zona-click">
+        <img src="img/Oggetti/beddef.png" alt="letto" />
+      </div>
+
+      <!-- Overlay scuro per atmosfera più cupa -->
+      <div id="filtroscuro"></div>
+    </div>
+
+    <!-- Menu di salvataggio (accessibile dal letto) -->
+    <div id="save-menu" class="modal-menu hidden">
+      <div id="save-overlay" class="modal-overlay"></div>
+      <div id="save-background" class="modal-background"></div>
+      <div id="save-content" class="modal-content">
+        <h1 id="save-title">Vuoi salvare la partita?</h1>
+        <div id="save-buttons">
+          <button id="save-yes-btn" class="btn">Sì</button>
+          <button id="save-no-btn" class="btn">No</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AMBIENTE 2: NEGOZIO -->
+    <div id="negozio" class="hidden">
+      <!-- Texture della parete -->
+      <div id="negozio-parete"></div>
+      <!-- Texture del pavimento -->
+      <div id="negozio-pavimento"></div>
+      <!-- Texture del bancone e sprite del venditore -->
+      <div id="bancone"></div>
+      <div id="venditore" class="zona-click">
+        <img src="img/Personaggi/venditore.png" alt="venditore" />
+      </div>
+      <!-- Oggetti intorno al venditore -->
+      <div id="oggetto-sx-alto" class="oggetto-vendor">
+        <img src="img/Armi/spada.png" alt="oggetto" />
+      </div>
+      <div id="oggetto-sx-basso" class="oggetto-vendor">
+        <img src="img/Armi/ascia.png" alt="oggetto" />
+      </div>
+      <div id="oggetto-sopra" class="oggetto-vendor">
+        <div class="medikit">
+          <div class="kit-croce-h"></div>
+          <div class="kit-croce-v"></div>
+        </div>
+      </div>
+      <div id="oggetto-dx-alto" class="oggetto-vendor">
+        <img src="img/Armi/fucile-assalto.png" alt="oggetto" />
+      </div>
+      <div id="oggetto-dx-basso" class="oggetto-vendor">
+        <img src="img/Armi/fucile-a-pompa.png" alt="oggetto" />
+      </div>
+      <!-- Texture della porta del negozio (a sinistra del muro) -->
+      <div id="negozio-porta" class="zona-click">
+        <div id="maniglia"></div>
+      </div>
+    </div>
+
+    <!-- Menu di acquisto del negozio -->
+    <div id="menu-negozio" class="hidden">
+      <div id="negozio-overlay"></div>
+      <div id="negozio-shop-container">
+        <div id="negozio-background"></div>
+
+        <!-- Colonne (mischia, a distanza, cure) -->
+        <div id="negozio-colonne">
+          <!-- Colonna armi da mischia -->
+          <div class="shop-colonna">
+            <h2 class="shop-titolo-colonna">MISCHIA</h2>
+            <div id="lista-mischia" class="shop-lista">
+              <div class="shop-item">
+                <div class="item-sprite">
+                  <img src="img/Armi/spada.png" alt="spada" />
+                </div>
+                <div class="shop-item-info">
+                  <p class="shop-item-nome">SPADA</p>
+                  <p class="shop-item-req">
+                    <span class="shop-item-tit">Requisiti:</span> Forza 2
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Danno:</span> 10 + 40% Frz
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Prob. critico:</span> 15%
+                  </p>
+                  <p class="shop-item-prezzo">10 $</p>
+                </div>
+                <button class="shop-btn" id="acquista-spada">ACQUISTA</button>
+              </div>
+              <div class="shop-item">
+                <div class="item-sprite">
+                  <img src="img/Armi/ascia.png" alt="ascia" />
+                </div>
+                <div class="shop-item-info">
+                  <p class="shop-item-nome">ASCIA</p>
+                  <p class="shop-item-req">
+                    <span class="shop-item-tit">Requisiti:</span> Forza 4
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Danno:</span> 15 + 70% Frz
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Prob. critico:</span> 40%
+                  </p>
+                  <p class="shop-item-prezzo">20 $</p>
+                </div>
+                <button class="shop-btn" id="acquista-ascia">ACQUISTA</button>
+              </div>
+              <div class="shop-item">
+                <div class="item-sprite">
+                  <img src="img/Armi/martello.png" alt="martello" />
+                </div>
+                <div class="shop-item-info">
+                  <p class="shop-item-nome">MARTELLO</p>
+                  <p class="shop-item-req">
+                    <span class="shop-item-tit">Requisiti:</span> Forza 6
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Danno:</span> 20 + 100% Frz
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Prob. critico:</span> 25%
+                  </p>
+                  <p class="shop-item-prezzo">35 $</p>
+                </div>
+                <button class="shop-btn" id="acquista-martello">ACQUISTA</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Colonna armi a distanza -->
+          <div class="shop-colonna">
+            <h2 class="shop-titolo-colonna">A DISTANZA</h2>
+            <div id="lista-distanza" class="shop-lista">
+              <div class="shop-item">
+                <div class="item-sprite">
+                  <img src="img/Armi/fucile-assalto.png" alt="fucile d'assalto"/>
+                </div>
+                <div class="shop-item-info">
+                  <p class="shop-item-nome">FUCILE D'ASSALTO</p>
+                  <p class="shop-item-req">
+                    <span class="shop-item-tit">Requisiti:</span> Intelligenza 3
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Danno:</span> 13 + 40% Int
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Prob. critico:</span> 13%
+                  </p>
+                  <p class="shop-item-prezzo">15 $</p>
+                </div>
+                <button class="shop-btn" id="acquista-fucile">ACQUISTA</button>
+              </div>
+              <div class="shop-item">
+                <div class="item-sprite">
+                  <img src="img/Armi/fucile-a-pompa.png" alt="fucile a pompa"/>
+                </div>
+                <div class="shop-item-info">
+                  <p class="shop-item-nome">FUCILE A POMPA</p>
+                  <p class="shop-item-req">
+                    <span class="shop-item-tit">Requisiti:</span> Intelligenza 6
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Danno:</span> 19 + 70% Int
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Prob. critico:</span> 15%
+                  </p>
+                  <p class="shop-item-prezzo">30 $</p>
+                </div>
+                <button class="shop-btn" id="acquista-pompa">ACQUISTA</button>
+              </div>
+              <div class="shop-item">
+                <div class="item-sprite">
+                  <img src="img/Armi/lanciagranate.png" alt="lanciagranate"/>
+                </div>
+                <div class="shop-item-info">
+                  <p class="shop-item-nome">LANCIAGRANATE</p>
+                  <p class="shop-item-req">
+                    <span class="shop-item-tit">Requisiti:</span> Intelligenza 9
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Danno:</span> 25 + 100% Int
+                  </p>
+                  <p class="shop-item-stats">
+                    <span class="shop-item-tit">Prob. critico:</span> 20%
+                  </p>
+                  <p class="shop-item-prezzo">50 $</p>
+                </div>
+                <button class="shop-btn" id="acquista-lanciagranate">ACQUISTA</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Colonna delle cure -->
+          <div class="shop-colonna">
+            <h2 class="shop-titolo-colonna">CURE</h2>
+            <div id="lista-cure" class="shop-lista">
+              <div class="shop-item">
+                <div class="medikit-small">
+                  <div class="kit-croce-h"></div>
+                  <div class="kit-croce-v"></div>
+                </div>
+                <div class="shop-item-info">
+                  <p class="shop-item-nome">MEDIKIT</p>
+                  <p class="shop-item-stats">Ripristina 40% salute</p>
+                  <p class="shop-item-prezzo">5 $</p>
+                </div>
+                <button class="shop-btn" id="acquista-cura">ACQUISTA</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pannello dell'equipaggiamento del giocatore (a destra delle colonne)-->
+        <div id="negozio-equip">
+          <h2 class="shop-titolo-colonna">IL TUO ARSENALE</h2>
+          <div class="equip-row">
+            <p class="equip-label">DOLLARI</p>
+            <p class="equip-valore" id="equip-dollari">0 $</p>
+          </div>
+          <div class="equip-row">
+            <p class="equip-label">PRIMARIA</p>
+            <p class="equip-valore" id="equip-primaria">—</p>
+          </div>
+          <div class="equip-row">
+            <p class="equip-label">SECONDARIA</p>
+            <p class="equip-valore" id="equip-secondaria">—</p>
+          </div>
+          <div class="equip-row">
+            <p class="equip-label">CURE</p>
+            <p class="equip-valore" id="equip-cure">0 / 10</p>
+          </div>
+          <button class="btn" id="chiudi-negozio">ESCI</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AMBIENTE 3: ARENA -->
+    <div id="arena" class="hidden">
+      <!-- Texture della parete -->
+      <div id="arena-parete"></div>
+
+      <!-- Texture del terreno -->
+      <div id="arena-terreno"></div>
+
+      <!-- Sprite del nemico — a destra dell'arena -->
+      <div id="sprite-nemico">
+        <img
+          id="img-nemico"
+          src="img/Personaggi/n3guardiacontaminata.png"
+          alt="nemico"
+        />
+      </div>
+
+      <!-- Sprite del giocatore — a sinistra dell'arena -->
+      <div id="sprite-giocatore">
+        <img
+          id="img-giocatore"
+          src="img/Personaggi/eroecyborg.png"
+          alt="giocatore"
+        />
+      </div>
+
+      <!-- Menu delle mosse -->
+      <div id="menu-mosse">
+        <!-- Battle log che si aggiorna ad ogni mossa -->
+        <div id="battle-log">
+          <p id="log-testo">Cosa vuoi fare?</p>
+        </div>
+        <!-- Bottoni delle mosse -->
+        <div id="mosse-bottoni">
+          <!-- Attacco con arma primaria -->
+          <button class="mossa-btn" id="btn-primaria">
+            <span class="mossa-sprite" id="sprite-primaria"></span>
+            <span class="mossa-info">
+              <span class="mossa-nome" id="nome-primaria"></span>
+              <span class="mossa-danno" id="danno-primaria"></span>
+            </span>
+          </button>
+          <!-- Attacco con arma secondaria -->
+          <button class="mossa-btn" id="btn-secondaria">
+            <span class="mossa-sprite" id="sprite-secondaria"></span>
+            <span class="mossa-info">
+              <span class="mossa-nome" id="nome-secondaria"></span>
+              <span class="mossa-danno" id="danno-secondaria"></span>
+            </span>
+          </button>
+          <!-- Cura con medikit -->
+          <button class="mossa-btn" id="btn-curati">
+            <span class="mossa-sprite medikit-small">
+              <span class="kit-croce-h"></span>
+              <span class="kit-croce-v"></span>
+            </span>
+            <span class="mossa-info">
+              <span class="mossa-nome" id="nome-medikit"></span>
+              <span class="mossa-danno" id="danno-medikit"></span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Barre della salute -->
+      <div id="bar-container-player">
+        <span class="hud-hp" id="hud-hp-player"></span>
+        <div class="hud-bar-track">
+          <div class="hud-bar-fill" id="bar-player"></div>
+        </div>
+      </div>
+      <div id="bar-container-nemico">
+        <span class="hud-hp" id="hud-hp-nemico"></span>
+        <div class="hud-bar-track">
+          <div class="hud-bar-fill enemy" id="bar-nemico"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU DI PAUSA -->
+    <div id="pause-menu" class="modal-menu hidden">
+      <div id="pause-overlay" class="modal-overlay"></div>
+      <div id="pause-background" class="modal-background"></div>
+      <div id="pause-content" class="modal-content">
+        <h1 id="pause-title">PAUSA</h1>
+        <div id="pause-buttons">
+          <button id="resume-btn" class="btn">Riprendi</button>
+          <button id="stats-btn" class="btn">Statistiche</button>
+          <button id="quit-btn" class="btn">Esci</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHERMATA STATISTICHE -->
+    <div id="stats-menu" class="modal-menu hidden">
+      <div id="stats-overlay" class="modal-overlay"></div>
+      <div id="stats-background" class="modal-background"></div>
+      <div id="stats-content" class="modal-content">
+        <h1 id="stats-title">STATISTICHE</h1>
+        <div id="stats-info">
+          <div id="stats-left">
+            <p><strong>Nome:</strong> <span id="stat-nome">-</span></p>
+            <p><strong>Razza:</strong> <span id="stat-razza">-</span></p>
+            <p><strong>Livello:</strong> <span id="stat-livello">-</span></p>
+            <p><strong>Salute:</strong> <span id="stat-salute">-</span></p>
+          </div>
+          <div id="stats-right">
+            <p><strong>Forza:</strong> <span id="stat-forza">-</span></p>
+            <p>
+              <strong>Intelligenza:</strong>
+              <span id="stat-intelligenza">-</span>
+            </p>
+            <p><strong>Tenacia:</strong> <span id="stat-tenacia">-</span></p>
+            <p><strong>Fortuna:</strong> <span id="stat-fortuna">-</span></p>
+          </div>
+        </div>
+        <div id="stats-equipment">
+          <p>
+            <strong>Arma Primaria:</strong>
+            <span id="stat-arma-primaria">-</span>
+          </p>
+          <p>
+            <strong>Arma Secondaria:</strong>
+            <span id="stat-arma-secondaria">-</span>
+          </p>
+          <p><strong>Cure Rimaste:</strong> <span id="stat-cure">-</span></p>
+        </div>
+        <button id="stats-close-btn" class="btn">Chiudi</button>
+      </div>
+    </div>
+
+    <!-- SISTEMA DEI DIALOGHI -->
+    <div id="dialogo" class="hidden">
+      <div id="dialogo-overlay"></div>
+      <div id="dialogo-container">
+        <div id="dialogo-sprite">
+          <img id="dialogo-img" src="img/Personaggi/pfp.jpg" alt="" />
+        </div>
+        <div id="dialogo-box">
+          <div id="dialogo-background"></div>
+          <p id="dialogo-nome">INTERLOCUTORE</p>
+          <p id="dialogo-testo">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <button id="dialogo-continua" class="btn">CONTINUA</button>
+          <div id="dialogo-scelte">
+            <button id="dialogo-scelta1" class="btn hidden">OPZIONE 1</button>
+            <button id="dialogo-scelta2" class="btn hidden">OPZIONE 2</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHERMATE DI STATO (Game Over, Vittoria, Level Up) -->
+
+    <!-- Schermata di game over -->
+    <div id="schermata-sconfitta" class="hidden" tabindex="0">
+      <p id="sconfitta-titolo">SEI MORTO</p>
+      <p id="sconfitta-sottotitolo">
+        Premi un tasto qualsiasi per ricaricare l'ultimo salvataggio
+      </p>
+    </div>
+
+    <!-- Schermata di vittoria -->
+    <div id="schermata-vittoria" class="modal-menu hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <h1 id="vittoria-titolo">VITTORIA</h1>
+        <div id="vittoria-info">
+          <p id="vittoria-dollari"></p>
+          <p id="vittoria-livello"></p>
+        </div>
+        <button id="vittoria-continua-btn" class="btn">CONTINUA</button>
+      </div>
+    </div>
+
+    <!-- Schermata di aumento di livello e assegnazione dei punti -->
+    <div id="schermata-levelup" class="modal-menu hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div id="levelup-hud">
+          <span id="levelup-livello"></span>
+          <span id="levelup-dollari"></span>
+        </div>
+        <h1 id="levelup-titolo">ASSEGNA PUNTI</h1>
+        <div class="points-available">
+          <p>PUNTI DISPONIBILI:</p>
+          <p id="levelup-points" class="points-value">5</p>
+        </div>
+        <div class="stats-container">
+          <div class="stat-column">
+            <div class="stat-block">
+              <div class="stat-header">
+                <h2 class="stat-name">FORZA</h2>
+                <p class="stat-description">
+                  Determina i danni inflitti negli attacchi corpo a corpo
+                </p>
+              </div>
+              <div class="stat-controls">
+                <button class="minus-btn" data-stat="forza">-</button>
+                <p class="stat-value" id="levelup-forza"></p>
+                <button class="plus-btn" data-stat="forza">+</button>
+              </div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-header">
+                <h2 class="stat-name">TENACIA</h2>
+                <p class="stat-description">
+                  Resistenza ai danni subiti
+                </p>
+              </div>
+              <div class="stat-controls">
+                <button class="minus-btn" data-stat="tenacia">-</button>
+                <p class="stat-value" id="levelup-tenacia"></p>
+                <button class="plus-btn" data-stat="tenacia">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="stat-column">
+            <div class="stat-block">
+              <div class="stat-header">
+                <h2 class="stat-name">INTELLIGENZA</h2>
+                <p class="stat-description">
+                  Capacità di utilizzare armi complesse
+                </p>
+              </div>
+              <div class="stat-controls">
+                <button class="minus-btn" data-stat="intelligenza">-</button>
+                <p class="stat-value" id="levelup-intelligenza"></p>
+                <button class="plus-btn" data-stat="intelligenza">+</button>
+              </div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-header">
+                <h2 class="stat-name">FORTUNA</h2>
+                <p class="stat-description">
+                  Aumenta probabilità di colpi critici
+                </p>
+              </div>
+              <div class="stat-controls">
+                <button class="minus-btn" data-stat="fortuna">-</button>
+                <p class="stat-value" id="levelup-fortuna"></p>
+                <button class="plus-btn" data-stat="fortuna">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button id="levelup-conferma-btn" class="btn" disabled>CONFERMA</button>
+      </div>
+    </div>
+
+    <!-- EPILOGO - Schermata finale del gioco -->
+    <div id="background2" class="hidden"></div>
+    <div id="epilogo" class="hidden">
+      <p id="epilogo-testo">
+        Hai lasciato Irongrave alle tue spalle.<br />
+        Ma le urla della folla continuano a riecheggiare nella tua mente.<br /><br />
+        L'arena.<br />
+        Il sangue.<br />
+        I cadaveri lasciati nella sabbia.<br /><br />
+        Tu sei sopravvissuto, l'uomo che eri no.
+      </p>
+      <p id="epilogo-sottotesto">
+        [Premi un tasto qualsiasi per tornare al menu principale]
+      </p>
+    </div>
+  </body>
+</html>
