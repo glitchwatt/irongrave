@@ -42,6 +42,9 @@ database.sql    database schema
 
 ## Credits
 
-Background textures from [ambientCG](https://ambientcg.com) (CC0).
+- Background textures: [ambientCG](https://ambientcg.com) (CC0)
+- Character sprites: [16x16 Dungeon Tileset](https://0x72.itch.io/16x16-dungeon-tileset) by 0x72 (CC0)
+- Firearm sprites: [arlantr](https://arlantr.itch.io/) (free to use)
+- Melee weapon sprites: downloaded from itch.io, original author unknown. If you are the author and want them credited or removed, please open an issue.
 
 Made in italian as a university exam project.
